@@ -14,33 +14,36 @@ def comienzo():
     hacer_apuesta=Toplevel()
     hacer_apuesta.title("Apuesta")
     hacer_apuesta.withdraw()
+    hacer_apuesta.geometry("500x590")
+    LIMG=Label(hacer_apuesta,image=tablero)
+    LIMG.place(x=0,y=0)
 
     BCR=Button(hacer_apuesta,text="rojos",command=rojos)
-    BCR.grid(row=6,column=0)
+    BCR.place(x=0,y=292)
 
     BCN=Button(hacer_apuesta,text="negros",command=negros)
-    BCN.grid(row=6,column=1)
+    BCN.place(x=38,y=292)
 
     BPAR=Button(hacer_apuesta,text="Pares",command=negros)
-    BPAR.grid(row=6,column=2)
+    BPAR.place(x=85,y=292)
 
     BIPR=Button(hacer_apuesta,text="Impares",command=rojos)
-    BIPR.grid(row=6,column=3)
+    BIPR.place(x=125,y=292)
 
     BPAS=Button(hacer_apuesta,text="Pasa",command=pasa)
-    BPAS.grid(row=6,column=4)
+    BPAS.place(x=178,y=292)
 
     BFAL=Button(hacer_apuesta,text="Falta",command=falta)
-    BFAL.grid(row=6,column=5)
+    BFAL.place(x=214,y=292)
 
     LEA=Label(hacer_apuesta,textvariable=numinv)
-    LEA.grid(row=5,column=6)
+    LEA.place(x=214,y=350)
 
     NUM=Entry(hacer_apuesta,textvariable=au)
-    NUM.grid(row=6,column=6)
+    NUM.place(x=250,y=292)
 
     BUM=Button(hacer_apuesta,text="verificar numero",command=numero)
-    BUM.grid(row=6,column=7)
+    BUM.place(x=360,y=292)
         
     a=1
     color[0]="verde"
@@ -54,12 +57,14 @@ def comienzo():
     if(din_dis<minimo):
         error.set("necesitas mas dinero")
     else:
-        error.set("El jugador cuenta con: "+ str(din_dis))
+        error.set("El jugador comenzo con: "+ str(din_dis))
         Brev.config(state=NORMAL)
         Ball.config(state=NORMAL)
         BI.config(state=DISABLED)
         dinero.config(state=DISABLED)
-        bienvenido.set("Usted esta jugando")
+        bienvenido.set("Usted esta jugando, la apuesta minima es de 100")
+        Dpa.config(state=NORMAL)
+        
 
 def verificar():
     global din_dis,minimo,apostad
@@ -73,6 +78,7 @@ def verificar():
             apostado.set("no puedes apostar esa cantidad \n Prueba de nuevo")
     if(a>=minimo and a<=din_dis):
         porapostar.set("Usted est apostando: " + str(a))
+        apostado.set(" ")
         apostad=a
 
         Ball.config(state=DISABLED)
@@ -117,10 +123,43 @@ def pasa():
     comparacion(G,I,N)
     
 def fin():
+    global din_dis
 
-    pass
+    m.set("")
+    da.set("")
+    au.set("")
+    bienvenido.set("¿Desea iniciar nuevo juego?")
+    apostado.set("El jugador se a retirado con :" + str(din_dis))
+    porapostar.set("")
+    ganado.set("")
+    d_act.set("")
+    numinv.set("")
+    Ball.config(state=DISABLED)
+    Brev.config(state=DISABLED)
+    Dpa.config(state=DISABLED)
+    dinero.config(state=NORMAL)
+    BI.config(state=NORMAL)
+    BRet.config(state=DISABLED)
 
+def comprobar():
+    global din_dis,minimo
 
+    if(din_dis<minimo):
+        m.set("")
+        da.set("")
+        au.set("")
+        bienvenido.set("¿Desea iniciar nuevo juego?")
+        apostado.set("El jugador se a retirado con :" + str(din_dis))
+        porapostar.set("No tiene dinero para la apuesta minima")
+        ganado.set("")
+        d_act.set("")
+        numinv.set("")
+        Ball.config(state=DISABLED)
+        Brev.config(state=DISABLED)
+        Dpa.config(state=DISABLED)
+        dinero.config(state=NORMAL)
+        BI.config(state=NORMAL)
+        BRet.config(state=DISABLED)        
 
 def falta():
 
@@ -150,9 +189,9 @@ def comparacion(G,V,N):
     num=random.randint(0,37)
     
     if(num<37):
-        apostado.set("La ruleta cayo en: " + str(num) + "color: " + str(color[num]))
+        apostado.set("La ruleta cayo en: " + str(num) + " color: " + str(color[num]))
     else:
-        apostado.set("La ruleta cayo en: 00" + "color: " + str(color[num]))
+        apostado.set("La ruleta cayo en: 00" + " color: " + str(color[num]))
 
     r=1
     W=0
@@ -208,6 +247,8 @@ def comparacion(G,V,N):
     Dpa.config(state=NORMAL)
     BRet.config(state=NORMAL)
 
+    comprobar()
+
 ventana=Tk()
 
 m=StringVar()
@@ -230,6 +271,7 @@ BI.grid(row=4,column=2)
 
 merror=Label(ventana,textvariable=error)
 merror.grid(row=5,column=2)
+tablero=PhotoImage(file="tablero.png")
 Lb=Label(ventana,textvariable=bienvenido)
 Lb.grid(row=1,column=2)
 La=Label(ventana,textvariable=apostado)
