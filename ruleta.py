@@ -1,23 +1,8 @@
 from tkinter import *
 from random import randint
-global hacer_apuesta,minimo,din_dis,color
+global hacer_apuesta,minimo,din_dis,color,apostad
 minimo=100
 color=["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]
-
-
-#def apuesta():
- #   global hacer_apuesta
-
-#    BA=Button(hacer_apuesta,text="Hacer apuesta",command=apuesta_hecha)
- #   BA.grid(row=6,column=5)
-
-#def apuesta_echa():
- #   global hacer_apuesta
-
-#    BAP=Button(ventana,text="Otra apuesta",command=apuesta)
- #   BAP.grid(row=10,column=10)
-    
-  #  hacer_apuesta.withdraw()
     
 def comienzo():
     global hacer_apuesta,minimo,din_dis,color
@@ -36,10 +21,10 @@ def comienzo():
     BCN=Button(hacer_apuesta,text="negros",command=negros)
     BCN.grid(row=6,column=1)
 
-    BPAR=Button(hacer_apuesta,text="Pares",command=pares)
+    BPAR=Button(hacer_apuesta,text="Pares",command=negros)
     BPAR.grid(row=6,column=2)
 
-    BIPR=Button(hacer_apuesta,text="Impares",command=pares)
+    BIPR=Button(hacer_apuesta,text="Impares",command=rojos)
     BIPR.grid(row=6,column=3)
 
     BPAS=Button(hacer_apuesta,text="Pasa",command=pasa)
@@ -74,7 +59,7 @@ def comienzo():
         bienvenido.set("Usted esta jugando")
 
 def verificar():
-    global din_dis,minimo
+    global din_dis,minimo,apostad
 
     dr=da.get()
 
@@ -85,6 +70,7 @@ def verificar():
             apostado.set("no puedes apostar esa cantidad \n Prueba de nuevo")
     if(a>=minimo and a<=din_dis):
         porapostar.set("Usted est apostando: " + str(a))
+        apostad=a
         BRet=Button(ventana,text="salir",command=fin,state=DISABLED)
         BRet.grid(row=10,column=2)
 
@@ -110,41 +96,111 @@ def todo():
     hacer_apuesta.deiconify()
 
 def rojos():
-    G=2
-    I=
-    pass
 
-def negros():
     G=2
-    pass
-
-def pares():
-    G=2
-    pass
+    I=1
+    N=0
+    comparacion(G,I,N)
     
-def impares():
+def negros():
+
     G=2
-    pass
+    I=2
+    N=0
+    comparacion(G,I,N)
 
 def pasa():
+
     G=1
-    pass
-              
+    I=4
+    N=0       
+    comparacion(G,I,N)
+    
 def fin():
+
     pass
+
+
 
 def falta():
-    G=1
-    pass
 
+    G=1
+    I=3
+    N=0
+    comparacion(G,I,N)
+    
 def numero():
+
     G=36
-    pass
+    I=0
+    N=float(au)
+    comparacion(G,I,N)
 
 def comparacion(G,V,N):
+    global din_dis,apostad
+
+    hacer_apuesta.withdraw()
     
-    pass
-              
+    num=random.randint(0,37)
+    
+    if(num<37):
+        apostado.set("La ruleta cayo en: " + str(num) + "color: " + str(color[num]))
+    else:
+        apostado.set("La ruleta cayo en: 00" + "color: " + str(color[num]))
+
+    r=1
+    W=0
+    
+    if(V>0 and v<=4):
+        if(V==1):
+
+            while(r<=36):
+                if(color[r]=="rojo"):
+                    ganado.set("a ganado: " + str(G*apostad))
+                    dis_dis=din_dis+(G*apostad)
+                    W=1
+                r=r+1
+            
+        if(V==2):
+            
+            while(r<=36):
+                if(color[r]=="negro"):
+                    ganado.set("a ganado: " + str(G*apostad))
+                    dis_dis=din_dis+(G*apostad)
+                    W=1
+                r=r+1
+                
+        if(V==3):
+
+            if(num<=18 and num>0):
+                ganado.set("a ganado: " + str(G*apostad))
+                dis_dis=din_dis+(G*apostad)
+                W=1
+
+        if(V==4):
+
+            if(num<=36 and num>18):
+                ganado.set("a ganado: " + str(G*apostad))
+                dis_dis=din_dis+(G*apostad)
+                W=1
+
+    if(V==0):
+
+        if(num==N):
+            ganado.set("a ganado: " + str(G*apostad))
+            dis_dis=din_dis+(G*apostad)
+            W=1
+
+    if(W==0):
+        ganado.set("a perdido: " + str(apostad))
+        dis_dis=din_dis-(apostad)
+
+    error.set("El jugador cuenta con: "+ str(din_dis))
+
+    Ball.config(state=NORMAL)
+    Brev.config(state=NORMAL)
+    Dpa.config(state=NORMAL)
+
 ventana=Tk()
 
 m=StringVar()
@@ -154,6 +210,7 @@ error=StringVar()
 bienvenido=StringVar()
 apostado=StringVar()
 porapostar=StringVar()
+ganado=StringVar()
 
 
 bienvenido.set("Bienvenido \n La apuesta minima es de: " + str(minimo) + "\n Cuanto dinero tiene?")
@@ -177,6 +234,7 @@ Brev=Button(ventana,text="Verificar apuesta",command=verificar,state=DISABLED)
 Brev.grid(row=9,column=2)
 Ball=Button(ventana,text="Apostar todo",command=todo,state=DISABLED)
 Ball.grid(row=9,column=3)
-
+Lganado=Label(ventana,textvariable=ganado)
+Lganado.grid(row=10,column=2)
     
 ventana.mainloop()
