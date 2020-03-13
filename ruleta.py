@@ -81,9 +81,10 @@ def verificar():
         apostado.set("no puedes apostar esa cantidad \n Prueba de nuevo")
         
 def todo():
-    global din_dis,minimo
+    global din_dis,minimo,apostad
 
     porapostar.set("Usted est apostando: " + str(din_dis))
+    apostad=din_dis
 
     Ball.config(state=DISABLED)
     Brev.config(state=DISABLED)
@@ -133,9 +134,10 @@ def numero():
     comparacion(G,I,N)
 
 def comparacion(G,V,N):
-    global din_dis,apostad
+    global din_dis,apostad,color
 
     hacer_apuesta.withdraw()
+    tg=0.0
     
     num=random.randint(0,37)
     
@@ -152,7 +154,7 @@ def comparacion(G,V,N):
 
             if(color[num]=="rojo"):
                 ganado.set("a ganado: " + str(G*apostad))
-                dis_dis=din_dis+(G*apostad)
+                tg=din_dis+(G*apostad)
                 W=1
              
             
@@ -160,36 +162,38 @@ def comparacion(G,V,N):
             
             if(color[num]=="negro"):
                 ganado.set("a ganado: " + str(G*apostad))
-                dis_dis=din_dis+(G*apostad)
+                tg=din_dis+(G*apostad)
                 W=1
                 
         if(V==3):
 
             if(num<=18 and num>0):
                 ganado.set("a ganado: " + str(G*apostad))
-                dis_dis=din_dis+(G*apostad)
+                tg=din_dis+(G*apostad)
                 W=1
 
         if(V==4):
 
             if(num<=36 and num>18):
                 ganado.set("a ganado: " + str(G*apostad))
-                dis_dis=din_dis+(G*apostad)
+                tg=din_dis+(G*apostad)
                 W=1
 
     if(V==0):
 
         if(num==N):
             ganado.set("a ganado: " + str(G*apostad))
-            dis_dis=din_dis+(G*apostad)
+            tg=din_dis+(G*apostad)
             W=1
 
     if(W==0):
-        dis_dis=din_dis-(apostad)
+        tg=din_dis-(apostad)
         ganado.set("a perdido: " + str(apostad))
-        d_act.set("El jugador cuenta con: "+ str(din_dis))
+        d_act.set("El jugador cuenta con: "+ str(tg))
     if(W==1):    
-        d_act.set("El jugador cuenta con: "+ str(din_dis))
+        d_act.set("El jugador cuenta con: "+ str(tg))
+
+    din_dis=tg
 
     Ball.config(state=NORMAL)
     Brev.config(state=NORMAL)
