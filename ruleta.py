@@ -1,5 +1,5 @@
 from tkinter import *
-from random import randint
+import random
 global hacer_apuesta,minimo,din_dis,color,apostad
 minimo=100
 color=["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]
@@ -71,8 +71,6 @@ def verificar():
     if(a>=minimo and a<=din_dis):
         porapostar.set("Usted est apostando: " + str(a))
         apostad=a
-        BRet=Button(ventana,text="salir",command=fin,state=DISABLED)
-        BRet.grid(row=10,column=2)
 
         Ball.config(state=DISABLED)
         Brev.config(state=DISABLED)
@@ -86,8 +84,6 @@ def todo():
     global din_dis,minimo
 
     porapostar.set("Usted est apostando: " + str(din_dis))
-    BRet=Button(ventana,text="salir",command=fin,state=DISABLED)
-    BRet.grid(row=10,column=2)
 
     Ball.config(state=DISABLED)
     Brev.config(state=DISABLED)
@@ -97,14 +93,14 @@ def todo():
 
 def rojos():
 
-    G=2
+    G=1
     I=1
     N=0
     comparacion(G,I,N)
     
 def negros():
 
-    G=2
+    G=1
     I=2
     N=0
     comparacion(G,I,N)
@@ -151,24 +147,21 @@ def comparacion(G,V,N):
     r=1
     W=0
     
-    if(V>0 and v<=4):
+    if(V>0 and V<=4):
         if(V==1):
 
-            while(r<=36):
-                if(color[r]=="rojo"):
-                    ganado.set("a ganado: " + str(G*apostad))
-                    dis_dis=din_dis+(G*apostad)
-                    W=1
-                r=r+1
+            if(color[num]=="rojo"):
+                ganado.set("a ganado: " + str(G*apostad))
+                dis_dis=din_dis+(G*apostad)
+                W=1
+             
             
         if(V==2):
             
-            while(r<=36):
-                if(color[r]=="negro"):
-                    ganado.set("a ganado: " + str(G*apostad))
-                    dis_dis=din_dis+(G*apostad)
-                    W=1
-                r=r+1
+            if(color[num]=="negro"):
+                ganado.set("a ganado: " + str(G*apostad))
+                dis_dis=din_dis+(G*apostad)
+                W=1
                 
         if(V==3):
 
@@ -192,14 +185,16 @@ def comparacion(G,V,N):
             W=1
 
     if(W==0):
-        ganado.set("a perdido: " + str(apostad))
         dis_dis=din_dis-(apostad)
-
-    error.set("El jugador cuenta con: "+ str(din_dis))
+        ganado.set("a perdido: " + str(apostad))
+        d_act.set("El jugador cuenta con: "+ str(din_dis))
+    if(W==1):    
+        d_act.set("El jugador cuenta con: "+ str(din_dis))
 
     Ball.config(state=NORMAL)
     Brev.config(state=NORMAL)
     Dpa.config(state=NORMAL)
+    BRet.config(state=NORMAL)
 
 ventana=Tk()
 
@@ -211,6 +206,7 @@ bienvenido=StringVar()
 apostado=StringVar()
 porapostar=StringVar()
 ganado=StringVar()
+d_act=StringVar()
 
 
 bienvenido.set("Bienvenido \n La apuesta minima es de: " + str(minimo) + "\n Cuanto dinero tiene?")
@@ -235,6 +231,10 @@ Brev.grid(row=9,column=2)
 Ball=Button(ventana,text="Apostar todo",command=todo,state=DISABLED)
 Ball.grid(row=9,column=3)
 Lganado=Label(ventana,textvariable=ganado)
-Lganado.grid(row=10,column=2)
+Lganado.grid(row=11,column=2)
+BRet=Button(ventana,text="salir",command=fin,state=DISABLED)
+BRet.grid(row=10,column=2)
+Lact=Label(ventana,textvariable=d_act)
+Lact.grid(row=12,column=2)
     
 ventana.mainloop()
