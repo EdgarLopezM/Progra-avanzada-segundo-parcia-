@@ -5,19 +5,19 @@ minimo=100
 color=["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]
 
 
-def apuesta():
-    global hacer_apuesta
+#def apuesta():
+ #   global hacer_apuesta
 
-    BA=Button(hacer_apuesta,text="Hacer apuesta",command=apuesta_hecha)
-    BA.grid(row=6,column=5)
+#    BA=Button(hacer_apuesta,text="Hacer apuesta",command=apuesta_hecha)
+ #   BA.grid(row=6,column=5)
 
-def apuesta_echa():
-    global hacer_apuesta
+#def apuesta_echa():
+ #   global hacer_apuesta
 
-    BAP=Button(ventana,text="Otra apuesta",command=apuesta)
-    BAP.grid(row=10,column=10)
+#    BAP=Button(ventana,text="Otra apuesta",command=apuesta)
+ #   BAP.grid(row=10,column=10)
     
-    hacer_apuesta.withdraw()
+  #  hacer_apuesta.withdraw()
     
 def comienzo():
     global hacer_apuesta,minimo,din_dis,color
@@ -110,27 +110,39 @@ def todo():
     hacer_apuesta.deiconify()
 
 def rojos():
+    G=2
+    I=
     pass
 
 def negros():
+    G=2
     pass
 
 def pares():
+    G=2
     pass
     
 def impares():
+    G=2
     pass
 
 def pasa():
+    G=1
     pass
               
 def fin():
     pass
 
 def falta():
+    G=1
     pass
 
 def numero():
+    G=36
+    pass
+
+def comparacion(G,V,N):
+    
     pass
               
 ventana=Tk()
