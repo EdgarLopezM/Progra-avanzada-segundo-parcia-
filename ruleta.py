@@ -33,6 +33,9 @@ def comienzo():
     BFAL=Button(hacer_apuesta,text="Falta",command=falta)
     BFAL.grid(row=6,column=5)
 
+    LEA=Label(hacer_apuesta,textvariable=numinv)
+    LEA.grid(row=5,column=6)
+
     NUM=Entry(hacer_apuesta,textvariable=au)
     NUM.grid(row=6,column=6)
 
@@ -132,7 +135,11 @@ def numero():
     I=0
     t=au.get()
     N=float(t)
-    comparacion(G,I,N)
+    if(N<=36 and N>=0):
+        comparacion(G,I,N)
+        numinv.set("")
+    numinv.set("numero no valido")
+    
 
 def comparacion(G,V,N):
     global din_dis,apostad,color
@@ -212,7 +219,7 @@ apostado=StringVar()
 porapostar=StringVar()
 ganado=StringVar()
 d_act=StringVar()
-
+numinv=StringVar()
 
 bienvenido.set("Bienvenido \n La apuesta minima es de: " + str(minimo) + "\n Cuanto dinero tiene?")
 dinero=Entry(ventana,textvariable=m)
@@ -241,5 +248,5 @@ BRet=Button(ventana,text="salir",command=fin,state=DISABLED)
 BRet.grid(row=10,column=2)
 Lact=Label(ventana,textvariable=d_act)
 Lact.grid(row=12,column=2)
-    
+
 ventana.mainloop()
