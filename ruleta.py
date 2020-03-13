@@ -130,7 +130,8 @@ def numero():
 
     G=36
     I=0
-    N=float(au)
+    t=au.get()
+    N=float(t)
     comparacion(G,I,N)
 
 def comparacion(G,V,N):
